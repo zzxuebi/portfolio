@@ -1,0 +1,33 @@
+.falling-text-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 270px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.falling-text-target {
+  display: inline-block;
+  color: var(--text-secondary);
+}
+
+.word {
+  display: inline-block;
+  margin: 0 0.5px;
+  user-select: none;
+}
+
+/* Green bold highlight for key phrases */
+.highlighted {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.falling-text-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
+}
