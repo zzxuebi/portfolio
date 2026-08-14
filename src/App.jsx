@@ -14,9 +14,27 @@ import './styles/global.css'
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 
-// Resources to preload
+// Resources to preload (hero video + all work covers + key images visible on first render)
 const PRELOAD_RESOURCES = [
   '/hero-video.mp4',
+  '/bg.png',
+  '/人物.png',
+  '/qrcode.png',
+  '/quote-decoration.svg',
+  '/icon-pattern.svg',
+  '/works/1.创立 LDP 平台/cover.png',
+  '/works/2.智慧立法平台/cover.png',
+  '/works/3.重庆反诈平台/cover.png',
+  '/works/4.广西数字党建/cover.png',
+  '/works/5.掌上人大/cover.png',
+  '/works/6.数字人大/cover.png',
+  '/works/7.智能会议通/cover.png',
+  '/works/8.香港选举系统/cover.png',
+  '/works/9.CASIT 脚手架/cover.png',
+  '/works/10.双河农场电商平台/cover.png',
+  '/works/11.悦禾旅游平台/cover.png',
+  '/works/12.设计规范/cover.png',
+  '/works/13.能力沉淀/cover.png',
 ]
 
 function App() {
@@ -68,7 +86,7 @@ function App() {
       }
     })
 
-    // Fallback: proceed after 8s regardless
+    // Fallback: proceed after 15s regardless
     fallbackTimer = setTimeout(() => {
       if (loading) {
         setLoadProgress(100)
