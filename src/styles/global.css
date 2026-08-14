@@ -2164,10 +2164,14 @@ input, textarea {
   }
 
   .quote-decoration {
-    height: 46px;
+    height: 80px;
     width: auto;
     margin: 0;
     flex-shrink: 0;
+  }
+
+  .timeline-year-seg {
+    display: block;
   }
 }
 

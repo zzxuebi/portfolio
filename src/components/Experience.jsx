@@ -120,7 +120,13 @@ function Timeline() {
             >
               <div className="timeline-node">
                 <span className="timeline-bullet-h" />
-                <div className="timeline-year-h">{exp.year}</div>
+                <div className="timeline-year-h">
+                  {exp.year.split(' - ').map((date, i, arr) => (
+                    <span key={i} className="timeline-year-seg">
+                      {date}{i < arr.length - 1 ? ' -' : ''}
+                    </span>
+                  ))}
+                </div>
               </div>
               <div className="timeline-card">
                 <div className="timeline-role">{exp.company}</div>
