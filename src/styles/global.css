@@ -566,6 +566,9 @@ input, textarea {
   height: 100%;
   object-fit: cover;
   z-index: 1;
+  background-image: url('/bg.webp');
+  background-size: cover;
+  background-position: center;
 }
 
 .hero-overlay {

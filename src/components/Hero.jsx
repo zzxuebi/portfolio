@@ -10,7 +10,7 @@ export default function Hero({ showUI }) {
   const scrollRef = useRef(null)
   const hasAnimated = useRef(false)
 
-  // Video plays for 5 seconds, then trigger hero text animations
+  // Video plays, then trigger hero text animations
   useEffect(() => {
     if (!showUI || hasAnimated.current) return
     hasAnimated.current = true
@@ -18,10 +18,22 @@ export default function Hero({ showUI }) {
     const video = videoRef.current
     if (!video) return
 
-    // Start video playback
-    video.play().catch(() => {})
+    // Attempt autoplay (muted + playsInline + autoPlay attribute ensures broad compatibility)
+    const playPromise = video.play()
+    if (playPromise) {
+      playPromise.catch(() => {
+        // If autoplay fails, retry on first user interaction
+        const retryPlay = () => {
+          video.play().catch(() => {})
+          document.removeEventListener('click', retryPlay)
+          document.removeEventListener('touchstart', retryPlay)
+        }
+        document.addEventListener('click', retryPlay, { once: true })
+        document.addEventListener('touchstart', retryPlay, { once: true })
+      })
+    }
 
-    // After 5 seconds, animate in the UI elements
+    // After 2 seconds, animate in the UI elements
     const timer = setTimeout(() => {
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
@@ -56,7 +68,7 @@ export default function Hero({ showUI }) {
           },
           '-=0.3'
         )
-    }, 5000)
+    }, 2000)
 
     return () => clearTimeout(timer)
   }, [showUI])
@@ -88,9 +100,13 @@ export default function Hero({ showUI }) {
         ref={videoRef}
         className="hero-video"
         src="/hero-video.mp4"
+        poster="/bg.webp"
         muted
+        autoPlay
+        loop
         playsInline
-        preload="auto"
+        webkit-playsinline="true"
+        preload="metadata"
         onEnded={(e) => e.target.pause()}
       />
       <div className="hero-overlay" />

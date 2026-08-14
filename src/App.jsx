@@ -40,6 +40,10 @@ function App() {
     let loaded = 0
     const total = PRELOAD_RESOURCES.length
     let fallbackTimer
+    let minTimeReached = false
+    let allResourcesReady = false
+    const startTime = Date.now()
+    const MIN_LOAD_TIME = 800 // Minimum display time for loading screen
 
     // Background preload: load modal (popup) images after landing page is ready
     const preloadModalImages = () => {
@@ -57,16 +61,29 @@ function App() {
         setTimeout(() => {
           setShowUI(true)
           preloadModalImages()
-        }, 400)
-      }, 600)
+        }, 200)
+      }, 300)
     }
+
+    const tryFinish = () => {
+      if (allResourcesReady && minTimeReached) {
+        finishLoading()
+      }
+    }
+
+    // Ensure minimum display time so loading screen doesn't flash
+    setTimeout(() => {
+      minTimeReached = true
+      tryFinish()
+    }, MIN_LOAD_TIME)
 
     const updateProgress = () => {
       loaded++
       const progress = Math.round((loaded / total) * 100)
       setLoadProgress(progress)
       if (loaded >= total) {
-        setTimeout(finishLoading, 300)
+        allResourcesReady = true
+        tryFinish()
       }
     }
 
@@ -75,7 +92,8 @@ function App() {
         const video = document.createElement('video')
         video.preload = 'auto'
         video.muted = true
-        video.onloadeddata = updateProgress
+        // Use canplay instead of loadeddata — fires much earlier when browser can start playing
+        video.oncanplay = updateProgress
         video.onerror = updateProgress
         video.src = src
       } else {
@@ -86,12 +104,12 @@ function App() {
       }
     })
 
-    // Fallback: proceed after 30s regardless (large assets may take time)
+    // Fallback: proceed after 12s regardless
     fallbackTimer = setTimeout(() => {
       if (loading) {
         finishLoading()
       }
-    }, 30000)
+    }, 12000)
 
     return () => clearTimeout(fallbackTimer)
   }, [])
