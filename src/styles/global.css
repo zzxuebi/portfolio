@@ -2151,6 +2151,24 @@ input, textarea {
   .resume-stats {
     padding: 20px 16px;
   }
+
+  .resume-quote {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .quote-text {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .quote-decoration {
+    height: 46px;
+    width: auto;
+    margin: 0;
+    flex-shrink: 0;
+  }
 }
 
 @media (max-width: 480px) {

@@ -206,9 +206,11 @@ export default function Experience() {
           {/* Bottom row: quote + skills + education */}
           <div className="resume-bottom">
             <div className="resume-quote">
-              <div className="quote-mark">"</div>
-              <p>设计不是让事物变得更复杂，而是建立更容易理解的视觉秩序。</p>
-              <div className="quote-signature">~~~</div>
+              <div className="quote-text">
+                <div className="quote-mark">"</div>
+                <p>设计不是让事物变得更复杂，而是建立更容易理解的视觉秩序。</p>
+                <div className="quote-signature">~~~</div>
+              </div>
               <img className="quote-decoration" src="/quote-decoration.svg" alt="decoration" />
             </div>
 
