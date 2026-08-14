@@ -96,7 +96,7 @@ export default function Contact() {
           {/* Profile card */}
           <div className="contact-photo-card">
             <ProfileCard
-              avatarUrl="/人物.png"
+              avatarUrl="/人物.webp"
               iconUrl="/icon-pattern.svg"
               name="HCY"
               title="Visual Designer"
@@ -166,7 +166,7 @@ export default function Contact() {
         <div className="qr-popup-overlay" onClick={() => setQrShow(false)}>
           <div className="qr-popup-card" onClick={(e) => e.stopPropagation()}>
             <button className="qr-popup-close" onClick={() => setQrShow(false)}>✕</button>
-            <img className="qr-popup-img" src="/qrcode.png" alt="WeChat QR Code" />
+            <img className="qr-popup-img" src="/qrcode.webp" alt="WeChat QR Code" />
             <div className="qr-popup-label">微信扫码添加</div>
           </div>
         </div>

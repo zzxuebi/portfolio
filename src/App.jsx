@@ -17,9 +17,9 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 // Level 1 resources: shown on the landing page (video, covers, bg, portrait, qr)
 const PRELOAD_RESOURCES = [
   '/hero-video.mp4',
-  '/bg.png',
-  '/人物.png',
-  '/qrcode.png',
+  '/bg.webp',
+  '/人物.webp',
+  '/qrcode.webp',
   ...getCoverPaths(),
 ]
 
@@ -227,7 +227,7 @@ function App() {
             <div className="qr-popup-overlay" onClick={() => setQrShow(false)}>
               <div className="qr-popup-card" onClick={(e) => e.stopPropagation()}>
                 <button className="qr-popup-close" onClick={() => setQrShow(false)}>✕</button>
-                <img className="qr-popup-img" src="/qrcode.png" alt="WeChat QR Code" />
+                <img className="qr-popup-img" src="/qrcode.webp" alt="WeChat QR Code" />
                 <div className="qr-popup-label">微信扫码添加</div>
               </div>
             </div>
