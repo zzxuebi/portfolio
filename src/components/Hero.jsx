@@ -100,13 +100,12 @@ export default function Hero({ showUI }) {
         ref={videoRef}
         className="hero-video"
         src="/hero-video.mp4"
-        poster="/bg.webp"
         muted
         autoPlay
         loop
         playsInline
         webkit-playsinline="true"
-        preload="metadata"
+        preload="auto"
         onEnded={(e) => e.target.pause()}
       />
       <div className="hero-overlay" />

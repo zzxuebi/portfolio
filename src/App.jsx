@@ -92,8 +92,8 @@ function App() {
         const video = document.createElement('video')
         video.preload = 'auto'
         video.muted = true
-        // Use canplay instead of loadeddata — fires much earlier when browser can start playing
-        video.oncanplay = updateProgress
+        // Use loadeddata — wait for video data to be fully loaded so it can play immediately
+        video.onloadeddata = updateProgress
         video.onerror = updateProgress
         video.src = src
       } else {
