@@ -174,6 +174,28 @@ const PROJECTS = [
   },
 ]
 
+// Get all modal (popup) image paths for background preloading
+export function getModalImagePaths() {
+  const paths = []
+  PROJECTS.forEach((p) => {
+    if (p.banner && !p.hideBanner) paths.push(p.banner)
+    p.sections.forEach((s) => {
+      if (s.images) {
+        s.images.forEach((img) => {
+          if (typeof img === 'string') paths.push(img)
+          else if (img.src) paths.push(img.src)
+        })
+      }
+    })
+  })
+  return paths
+}
+
+// Get all cover image paths for loading screen preload
+export function getCoverPaths() {
+  return PROJECTS.map((p) => p.cover)
+}
+
 export default function Portfolio({ onCloseModal }) {
   const sectionRef = useRef(null)
   const headerRef = useRef(null)

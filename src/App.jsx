@@ -7,34 +7,20 @@ import Navbar from './components/Navbar'
 import ProgressAxis from './components/ProgressAxis'
 import Hero from './components/Hero'
 import Experience from './components/Experience'
-import Portfolio from './components/Portfolio'
+import Portfolio, { getModalImagePaths, getCoverPaths } from './components/Portfolio'
 import Contact from './components/Contact'
 import MouseFollower from './components/MouseFollower'
 import './styles/global.css'
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 
-// Resources to preload (hero video + all work covers + key images visible on first render)
+// Level 1 resources: shown on the landing page (video, covers, bg, portrait, qr)
 const PRELOAD_RESOURCES = [
   '/hero-video.mp4',
   '/bg.png',
   '/人物.png',
   '/qrcode.png',
-  '/quote-decoration.svg',
-  '/icon-pattern.svg',
-  '/works/1.创立 LDP 平台/cover.png',
-  '/works/2.智慧立法平台/cover.png',
-  '/works/3.重庆反诈平台/cover.png',
-  '/works/4.广西数字党建/cover.png',
-  '/works/5.掌上人大/cover.png',
-  '/works/6.数字人大/cover.png',
-  '/works/7.智能会议通/cover.png',
-  '/works/8.香港选举系统/cover.png',
-  '/works/9.CASIT 脚手架/cover.png',
-  '/works/10.双河农场电商平台/cover.png',
-  '/works/11.悦禾旅游平台/cover.png',
-  '/works/12.设计规范/cover.png',
-  '/works/13.能力沉淀/cover.png',
+  ...getCoverPaths(),
 ]
 
 function App() {
@@ -55,18 +41,32 @@ function App() {
     const total = PRELOAD_RESOURCES.length
     let fallbackTimer
 
+    // Background preload: load modal (popup) images after landing page is ready
+    const preloadModalImages = () => {
+      const modalPaths = getModalImagePaths()
+      modalPaths.forEach((src) => {
+        const img = new Image()
+        img.src = src
+      })
+    }
+
+    const finishLoading = () => {
+      setLoadProgress(100)
+      setTimeout(() => {
+        setLoading(false)
+        setTimeout(() => {
+          setShowUI(true)
+          preloadModalImages()
+        }, 400)
+      }, 600)
+    }
+
     const updateProgress = () => {
       loaded++
       const progress = Math.round((loaded / total) * 100)
       setLoadProgress(progress)
       if (loaded >= total) {
-        setTimeout(() => {
-          setLoadProgress(100)
-          setTimeout(() => {
-            setLoading(false)
-            setTimeout(() => setShowUI(true), 400)
-          }, 600)
-        }, 300)
+        setTimeout(finishLoading, 300)
       }
     }
 
@@ -86,16 +86,12 @@ function App() {
       }
     })
 
-    // Fallback: proceed after 15s regardless
+    // Fallback: proceed after 30s regardless (large assets may take time)
     fallbackTimer = setTimeout(() => {
       if (loading) {
-        setLoadProgress(100)
-        setTimeout(() => {
-          setLoading(false)
-          setTimeout(() => setShowUI(true), 400)
-        }, 600)
+        finishLoading()
       }
-    }, 8000)
+    }, 30000)
 
     return () => clearTimeout(fallbackTimer)
   }, [])
